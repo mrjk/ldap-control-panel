@@ -64,7 +64,7 @@ def serve(
         # templates_path=templates_path,
     )
     
-    click.echo(f"Starting server at http://{host}:{port}")
+    click.echo(f"Starting server at http://{host}:{port} ({public_url})")
     server.serve(debug=debug)
 
 
