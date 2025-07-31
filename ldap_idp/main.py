@@ -35,7 +35,7 @@ from ldap_idp.subapps.browser.main import SubAppWidget as BrowserApp
 from ldap_idp.subapps.viewer.main import SubAppWidget as ViewerApp
 
 # Demo Apps
-from ldap_idp.subapps.hello.main import SubAppWidget as HelloApp
+#from ldap_idp.subapps.hello.main import SubAppWidget as HelloApp
 
 # APP_LIST = [
 #     HelloApp(app_name="App 1", message_content="First App! 🌍", variant="green"),
