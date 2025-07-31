@@ -15,6 +15,7 @@ from textual.widgets import ContentSwitcher
 from textual import work
 from textual.reactive import reactive
 
+from ldap_idp.lib_textual.decorators import message, action, watch
 from ldap_idp.ldap_backend import LDAPConfig, LDAPConnectionImproved
 from ldap_idp.lib_textual.app_base import AppWrapper, WrappedAppBase
 from ldap_idp.lib_textual.comp_store import AppStoreServerMixin
@@ -122,13 +123,15 @@ class SubAppViewerMixin:
     # Watchers handlers
     # =============================================================
 
-    def watch_current_ldap_connection(self, value):
+    @watch("current_ldap_connection")
+    def watch_current_ldap_connection33333(self, value):
         "Update UI when current LDAP connection changes"
 
         # Update sub elements
         self.query_one("TreeView").current_ldap_connection = value
 
-    def watch_current_rule_entry(self, rule_entry):
+    @watch("current_rule_entry")
+    def watch_current_rule_entry444(self, rule_entry):
         "Update UI when current rule entry changes"
 
         # Update sub elements
@@ -142,8 +145,9 @@ class SubAppViewerMixin:
     # Event handlers
     # =============================================================
 
-    def on_tree_view_ldap_entry_selection(
-        self, message: TreeView.LdapEntrySelection
+    @message(TreeView.LdapEntrySelection)
+    def on_tree_view_ldap_entry_selection22(
+        self, msg: TreeView.LdapEntrySelection
     ) -> None:
         """Handle rule entry selection message from tree widget."""
 
@@ -153,8 +157,8 @@ class SubAppViewerMixin:
         #     return
 
         rule_entry = None
-        if isinstance(message.node_data, dict) and "label" in message.node_data:
-            rule_entry = message.node_data
+        if isinstance(msg.node_data, dict) and "label" in msg.node_data:
+            rule_entry = msg.node_data
             self.query_one(ContentSwitcher).display = True
         else:
             self.query_one(ContentSwitcher).display = False
@@ -162,7 +166,8 @@ class SubAppViewerMixin:
         self.current_rule_entry = rule_entry
 
 
-    def action_cycle_views(self) -> None:
+    @action("cycle_views")
+    def action_cycle_views222(self) -> None:
         """Action triggered when 't' key is pressed."""
         logger.info("Test notification triggered by 't' key")
 
@@ -227,6 +232,7 @@ class SubAppWidget(WrappedAppBase, SubAppViewerMixin, AppStoreServerMixin):
             "LDAP Viewer",
             containers_first=settings.browser.containers_first,
             classes="widget-ldap-selector",
+            id="viewer-tree-view",
         )
         content_view = ContentView(initial=initial_view)
         header_view = HeaderView(classes="widget-ldap-entry")

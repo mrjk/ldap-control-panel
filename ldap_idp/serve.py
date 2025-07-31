@@ -51,20 +51,20 @@ def serve(
 ) -> None:
     """Serve the LDAP IDP Textual app via web interface."""
 
-    if not public_url:
-        public_url = f"http://{host}:{port}"
+    # if not public_url:
+    #     public_url = f"http://{host}:{port}"
 
     server = Server(
         "python -m ldap_idp.main",
         host=host,
         port=port,
         title=title,
-        # public_url=public_url,
+        public_url=public_url,
         # statics_path=statics_path,
         # templates_path=templates_path,
     )
     
-    click.echo(f"Starting server at http://{host}:{port}")
+    click.echo(f"Starting server at http://{host}:{port} ({public_url})")
     server.serve(debug=debug)
 
 

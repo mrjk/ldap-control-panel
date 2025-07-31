@@ -28,7 +28,7 @@ docker run --rm -ti \
   -e "LDAPCP__AUTHLDAP__uri=ldap://your-ldap-server:389" \
   -e "LDAPCP__AUTHLDAP__bind_dn=cn=admin,dc=example,dc=com" \
   -e "LDAPCP__AUTHLDAP__bind_pass=your-password" \
-  ldap-idp:latest ldapcp-tui
+  mrjk78/ldap-control-panel:main ldapcp-tui
 
 # Or serve web interface
 docker run --rm -ti \
@@ -36,7 +36,7 @@ docker run --rm -ti \
   -e "LDAPCP__AUTHLDAP__bind_dn=cn=admin,dc=example,dc=com" \
   -e "LDAPCP__AUTHLDAP__bind_pass=your-password" \
   -p 8000:8000 \
-  ldap-idp:latest ldapcp-serve --host 0.0.0.0 --port 8000
+  mrjk78/ldap-control-panel:main ldapcp-serve --host 0.0.0.0 --port 8000
 ```
 
 #### Quick Start - Docker Compose
@@ -46,8 +46,8 @@ docker run --rm -ti \
 cat > docker-compose.yml << EOF
 version: '3.8'
 services:
-  ldap-idp:
-    image: ldap-idp:latest
+  lcp:
+    image: mrjk78/ldap-control-panel:main
     environment:
       - LDAPCP__AUTHLDAP__uri=ldap://your-ldap-server:389
       - LDAPCP__AUTHLDAP__bind_dn=cn=admin,dc=example,dc=com

@@ -4,6 +4,9 @@ Simple Textual CLI App - Hello World
 A demonstration of a basic textual application with header and footer.
 """
 
+# pylint: disable=logging-fstring-interpolation
+
+
 import logging
 from pprint import pprint
 
@@ -53,6 +56,18 @@ APP_LIST = [
 ]
 
 
+class CustomTabbedContent(TabbedContent):
+    """Custom TabbedContent with down arrow binding to move focus to next element."""
+    
+    BINDINGS = [
+        Binding("down", "next_focus", "Next Focus", show=False),
+    ]
+    
+    def action_next_focus(self) -> None:
+        """Move focus to the next focusable element."""
+        self.screen.focus_next()
+
+
 class BigApp(WrappedAppBase):
     """Main container compound widget for the app."""
 
@@ -75,7 +90,7 @@ class BigApp(WrappedAppBase):
 
         if MODE == "tabbed":
             first_app = None
-            with TabbedContent(id="main-tabbed-content") as tabbed_content:
+            with CustomTabbedContent(id="main-tabbed-content") as tabbed_content:
                 idx = 0
 
                 for app_cls in APP_LIST:

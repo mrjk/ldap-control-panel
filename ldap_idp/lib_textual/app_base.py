@@ -32,7 +32,7 @@ class WrappedAppBase(Container, AppConfigLoaderMixin):
         self.app_name = app_name or None  # "NO NAME APP"
         self.app_config = app_config or {}
 
-        logger.info("Loading app configuration")
+        logger.info("Loading %s app configuration", self)
         self.set_app_config(app_name=self.app_name, app_config=self.app_config)
 
         super().__init__(*args, **kwargs)
