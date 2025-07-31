@@ -52,3 +52,4 @@ branch = "main"
 upload_to_PyPI = true
 upload_to_release = true
 build_command = "pip install poetry && poetry build"
+allow_zero_version = true
