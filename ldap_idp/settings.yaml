@@ -1,0 +1,222 @@
+---
+# LDAP Control Plane
+
+
+# ====================================
+# Configure LDAP Auth
+# ====================================
+authldap:
+  uri: "ldap://localhost:389"
+  base_dn: ""
+  bind_dn: "cn=admin,BASE_DN"
+  bind_pass: "admin"
+
+
+# ====================================
+# Configure Browser app
+# ====================================
+browser:
+
+    # Default view in browser
+    # Choice: [table,json]
+    default_view: table
+
+    # Show containers entry first
+    containers_first: True
+
+    # Choose to display short names (simple) or first dn (full)
+    # Choice: [simple,full]
+    display_mode: full
+
+    # Enable tree auto expand on startup
+    auto_expand: True
+
+    # Hide common object classes from UI display
+    oc_silented:
+      - top
+    oc_order:
+      - inetOrgPerson
+    # Hide common attributes from UI display (e.g., sensitive data)
+    attr_silented:
+      - userPassword
+    # Preferred display order for attributes (not yet implemented)
+    attr_order:
+      - objectClass
+      - ou
+      - cn
+      - description
+      - seeAlso
+      - uid
+      - mail
+      - uidNumber
+      - gidNumber
+      - homeDirectory
+
+    # Missing value placeholder TOFIX
+    # missing_value_placeholder: ""
+
+
+# ====================================
+# Configure viewer application
+# ====================================
+viewer:
+    # Default view in browser
+    # Choice: [table,json]
+    default_view: default
+
+    # Default placeholder for missing values
+    missing_value_placeholder: "-"
+
+
+
+
+# Define viewer rules here
+viewer_entities:
+  users:
+    name: Users
+    desc: Manage users
+    icon: 👤
+    ldap_filter: '(objectclass=inetOrgPerson)'
+
+
+    profiles:
+      overview:
+        desc: Show all users
+        ldap_filter: '(objectclass=inetOrgPerson)'
+        attr:
+          - DN
+          - cn
+          - uid
+          - mail
+
+      posix:
+        desc: Show all posix users
+        ldap_filter: '(objectclass=posixAccount)'
+        attr: 
+          - uid
+          - uidNumber
+          - gidNumber
+          - businessCategory
+          - DN
+          - memberOf
+
+      members:
+        desc: Show important infos only
+        ldap_filter: '(objectClass=inetOrgPerson)'
+        attr: 
+          - uid
+          - DN
+          - memberOf
+          # - uidNumber
+          # - businessCategory
+          # - gidNumber
+          # - uid
+          # - userPassword
+
+      # active:
+      #   desc: Show only active users
+      #   ldap_filter: '(&(objectClass=inetOrgPerson)(!(accountStatus=disabled)))'
+      #   attr:
+      #     - uid
+      #     - cn
+      #     - mail
+      #     - memberOf
+
+  groups:
+
+    name: Groups
+    desc: Manage groups
+    icon: 👥
+    ldap_filter: '(|(objectClass=groupOfUniqueNames)(objectClass=groupOfNames)(objectClass=groupOfURLs))'
+
+    profiles:
+
+      overview:
+        desc: Show all groups
+        ldap_filter: '(|(objectClass=groupOfUniqueNames)(objectClass=groupOfURLs))'
+        attr:
+          - DN
+          - cn
+          - gidNumber 
+          - description
+          - memberURL
+
+      tldr:
+        desc: Show important infos only
+        ldap_filter: '(|(objectClass=groupOfUniqueNames)(objectClass=groupOfURLs))'
+        attr:
+          - cn
+          - uniqueMember 
+          - gidNumber 
+          - description
+          - DN
+
+
+      posix:
+        desc: Show all posix groups
+        ldap_filter: '(objectclass=posixGroup)'
+        attr: 
+          - cn
+        #   - uidNumber
+          - gidNumber
+        #   - businessCategory
+          - DN
+          - uniqueMember
+
+
+      admin:
+        desc: Show admin groups only
+        ldap_filter: '(&(objectClass=groupOfUniqueNames)(cn=*admin*))'
+        attr:
+          - cn
+          - uniqueMember
+          - description
+
+  # services:
+  #   name: Service
+  #   desc: Show all services
+  #   ldap_filter: '(objectClass=serviceAccount)'
+  #   icon: 🖥️
+
+  #   profiles:
+
+  #     web:
+  #       desc: Show web services
+  #       ldap_filter: '(&(objectClass=serviceAccount)(cn=*web*))'
+  #       attr:
+  #         - cn
+  #         - servicePrincipalName
+  #         - memberOf
+
+  ou:
+    name: Org
+    desc: Show all organizational units
+    icon: 📁
+    ldap_filter: '(|(objectClass=organizationalUnit)(objectClass=dcObject))'
+
+
+    profiles:
+      overview:
+        desc: Show organizational units
+        ldap_filter: '(objectClass=organizationalUnit)'
+        attr:
+          - DN
+          - ou
+          - description
+      structure:
+        desc: Show OU structure
+        ldap_filter: '(objectClass=organizationalUnit)'
+        attr:
+          - ou
+          - description
+
+      data:
+        desc: Show all data
+        # ldap_filter: '(&(objectClass=*)(!objectClass=organizationalUnit))'
+        # ldap_filter: (!(objectClass=organizationalUnit))
+        # ldap_filter: (!(cn=''))
+        ldap_filter: (cn=*)
+        attr:
+          - cn
+          - DN
+          - objectClass
