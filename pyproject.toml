@@ -9,16 +9,18 @@ license = {text = "GPLv3"}
 readme = "README.md"
 requires-python = ">3.12,<4"
 dependencies = [
-    "textual (>=4.0.0,<5.0.0)",
+    "textual[syntax] (>=5.0.1,<6.0.0)",
     "python-ldap (>=3.4.4,<4.0.0)",
     "click (>=8.0.0,<9.0.0)",
     "pyyaml (>=6.0.0,<7.0.0)",
     "textual-serve (>=1.1.2,<2.0.0)",
-    "pydantic (>=2.11.7,<3.0.0)"
+    "pydantic (>=2.11.7,<3.0.0)",
+    "dynaconf (>=3.2.11,<4.0.0)"
 ]
 
 [project.scripts]
-ldap-idp = "ldap_idp.main:main"
+ldapcp-tui = "ldap_idp.main:main"
+ldapcp-serve = "ldap_idp.serve:serve"
 
 [tool]
 [tool.poetry]
