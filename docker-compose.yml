@@ -1,0 +1,67 @@
+---
+
+# Common environment variables
+x-auth: &x-auth-env
+  LDAPCP__AUTHLDAP__uri: "${LDAPCP__AUTHLDAP__uri}"
+  LDAPCP__AUTHLDAP__base_dn: "${LDAPCP__AUTHLDAP__base_dn}"
+  LDAPCP__AUTHLDAP__bind_dn: "${LDAPCP__AUTHLDAP__bind_dn}"
+  LDAPCP__AUTHLDAP__bind_pass: "${LDAPCP__AUTHLDAP__bind_pass}"
+
+  # LDAPCP__AUTHLDAP__uri: "ldap://IP:PORT"
+  # LDAPCP__AUTHLDAP__base_dn: "BASE_DN"
+  # LDAPCP__AUTHLDAP__bind_dn: "cn=admin,BASE_DN"
+  # LDAPCP__AUTHLDAP__bind_pass: "admin"
+
+# Common service configuration
+x-service-base: &x-service-base
+  build:
+    context: .
+    dockerfile: Dockerfile
+  image: ldap-idp:latest
+  environment:
+    <<: *x-auth-env
+    PYTHONUNBUFFERED: 1
+  volumes:
+    - ./ldap_idp/config.yaml:/app/ldap_idp/config.yaml:ro
+    - ./ldap_idp/settings.yaml:/app/ldap_idp/settings.yaml:ro
+
+
+networks:
+  default:
+
+
+services:
+
+  # Web Interface
+  ldap-idp-web:
+    <<: *x-service-base
+    container_name: ldap-idp-web
+    command: ["python", "-m", "ldap_idp.serve", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  # CLI Application
+  ldap-idp-cli:
+    <<: *x-service-base
+    container_name: ldap-idp-cli
+    command: ["python", "-m", "ldap_idp.main"]
+    profiles:
+      - cli
+    stdin_open: true
+    tty: true
+
+  # Development with hot reload
+  ldap-idp-web-dev:
+    <<: *x-service-base
+    container_name: ldap-idp-dev
+    command: ["python", "-m", "ldap_idp.serve", "--host", "0.0.0.0", "--port", "8000", "--debug"]
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ./ldap_idp/config.yaml:/app/ldap_idp/config.yaml:ro
+      - ./ldap_idp/settings.yaml:/app/ldap_idp/settings.yaml:ro
+    profiles:
+      - dev
+    restart: unless-stopped
