@@ -9,6 +9,8 @@ on:
       - dev
     paths-ignore:
       - '**.md'
+    tags:
+      - 'v*'
   release:
     types: [published]
 
