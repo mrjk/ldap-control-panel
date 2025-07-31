@@ -2,15 +2,16 @@ import logging
 from types import SimpleNamespace
 from typing import Any, Dict
 
-import yaml
+
 from textual.app import ComposeResult
 from textual.containers import ScrollableContainer
 from textual.widgets import DataTable, Static, Markdown
 from textual.widget import Widget
 from textual.reactive import reactive
 from textual.widgets import Pretty
+from textual import work
 
-
+from ldap_idp.lib_textual.decorators import message, action, watch
 from ldap_idp.ldap_backend import get_rdn, SCOPE_SUBTREE
 from ldap_idp.config import settings
 
@@ -127,12 +128,6 @@ Children: {data.children}
 # =============================================================
 # Content panels
 # =============================================================
-import time
-import asyncio
-from textual import work
-
-from textual import on
-# from ldap_idp.lib_textual.decorators2 import watch
 
 class ContentViewBase(ScrollableContainer, can_focus=False):
     """Base class for content views."""
@@ -146,9 +141,10 @@ class ContentViewBase(ScrollableContainer, can_focus=False):
         super().__init__(*args, **kwargs)
         self._pending_rule_entry = None
 
-    def watch_current_rule_entry(self, rule_entry):
+    @watch("current_rule_entry")
+    def watch_current_rule_entry_____(self, rule_entry):
         """Update the content view with LDAP entry information."""
-        logger.info(f"watch_current_rule_entry called with rule_entry: {rule_entry}")
+        logger.info("watch_current_rule_entry called with rule_entry: %s", rule_entry)
 
         # self.notify(f"watch_current_rule_entry called with rule_entry: {rule_entry}")
 
@@ -174,7 +170,7 @@ class ContentViewBase(ScrollableContainer, can_focus=False):
         #     assert False, "TOFIX: no query"
         results = []
         if isinstance(query, str):
-            logger.info(f"Executing LDAP query: {query}")
+            logger.info("Executing LDAP query: %s", query)
             results = self.current_ldap_connection.search(scope=SCOPE_SUBTREE, filter_str=query)
         self.loading = False
 
@@ -185,7 +181,7 @@ class ContentViewBase(ScrollableContainer, can_focus=False):
     @work
     async def watch_current_ldap_connection(self, connection):
         """Handle LDAP connection changes."""
-        logger.info(f"watch_current_ldap_connection called with connection: {connection}")
+        logger.info("watch_current_ldap_connection called with connection: %s", connection)
         if connection and hasattr(self, '_pending_rule_entry') and self._pending_rule_entry:
             # Connection is now available and we have a pending rule entry
             logger.info("LDAP connection available, processing pending rule entry")
@@ -278,11 +274,7 @@ class ContentViewTable(ContentViewBase):
         """Create child widgets for the scrollable container."""
         self.content_widget = DataTable(id="table-container")
         self.content_widget.can_focus = False
-        # Add columns with proper names
-        # self.content_widget.add_columns("Attribute", "Values")
         yield self.content_widget
-
-
 
 
     def view_result_process(self, rule_entry, results):
@@ -330,8 +322,6 @@ class ContentViewTable(ContentViewBase):
             attrs = result.get("attributes")
             attrs = {k.lower(): v for k, v in attrs.items()}
 
-            # self.notify(f"attrs: {attrs}", markup=False)
-
             fields2 = []
             for field in columns:
                 value = missing_placeholder
@@ -355,7 +345,8 @@ class ContentViewTable(ContentViewBase):
             self.content_widget.add_row(*fields2)
  
             
-    def on_content_widget_header_selected(
+    @message(DataTable.HeaderSelected)
+    def on_content_widget_header_selected999(
         self, event: DataTable.HeaderSelected
     ) -> None:
         """Handle header click for sorting using built-in sort method."""

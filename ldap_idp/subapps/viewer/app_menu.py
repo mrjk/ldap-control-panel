@@ -6,6 +6,7 @@ from textual.widgets import Tree
 from textual.reactive import reactive
 
 from ldap_idp.config import settings
+from ldap_idp.lib_textual.decorators import message, action, watch
 from ldap_idp.lib_textual.comp_config import AppConfigMixin
 from ldap_idp.lib_textual.wid_tree import TreeDataDir
 
@@ -49,7 +50,8 @@ class TreeView(TreeDataDir, AppConfigMixin):
 
         self.read_config()
 
-    def on_tree_node_selected(self, event: Tree.NodeSelected) -> None:
+    @message(Tree.NodeSelected)
+    def on_tree_node_selected222(self, event: Tree.NodeSelected) -> None:
         """Handle tree node selection and send message to parent."""
         node = event.node
         node_data = node.data
@@ -60,7 +62,6 @@ class TreeView(TreeDataDir, AppConfigMixin):
 
     def read_config(self):
         """Build the tree recursively."""
-        
         parent_node = self.root
         entities = settings.viewer_entities
 
@@ -91,7 +92,7 @@ class TreeView(TreeDataDir, AppConfigMixin):
                     "ldap_filter": rule_conf.get('ldap_filter',None),
                 }
                 rule_data.update(rule_conf)
-                
+
                 rule_node = entity_node.add_leaf(rule_data["label"])
                 rule_node.data = rule_data
 
