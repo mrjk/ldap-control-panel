@@ -116,7 +116,7 @@ class TreeView(TreeDataDir):
             self.root.expand()
 
         logger.info("Recursive tree updated")
-        self.focus()
+        # self.focus()
 
     def _build_tree_recursive(
         self, parent_node, children_data, containers_first=False, depth=0

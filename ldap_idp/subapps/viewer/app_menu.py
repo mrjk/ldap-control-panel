@@ -97,6 +97,6 @@ class TreeView(TreeDataDir, AppConfigMixin):
 
 
         # Make the widget first on update
-        self.focus()
+        # self.focus()
         parent_node.expand_all()
 

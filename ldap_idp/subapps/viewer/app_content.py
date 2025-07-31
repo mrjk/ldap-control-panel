@@ -134,7 +134,7 @@ from textual import work
 from textual import on
 # from ldap_idp.lib_textual.decorators2 import watch
 
-class ContentViewBase(ScrollableContainer):
+class ContentViewBase(ScrollableContainer, can_focus=False):
     """Base class for content views."""
 
     current_ldap_connection: reactive[Any] = reactive(None)
@@ -227,7 +227,7 @@ class ContentViewBase(ScrollableContainer):
 
 
 
-class ContentViewJSON(ContentViewBase):
+class ContentViewJSON(ContentViewBase, can_focus=True):
     """Right pane for the app."""
 
     DEFAULT_CSS = """
@@ -256,7 +256,7 @@ class ContentViewJSON(ContentViewBase):
 
 
 
-class ContentViewTable(ContentViewBase, can_focus=False):
+class ContentViewTable(ContentViewBase):
     """Right pane for the app displaying LDAP entries in table format."""
 
     DEFAULT_CSS = """
@@ -277,6 +277,7 @@ class ContentViewTable(ContentViewBase, can_focus=False):
     def compose(self) -> ComposeResult:
         """Create child widgets for the scrollable container."""
         self.content_widget = DataTable(id="table-container")
+        self.content_widget.can_focus = False
         # Add columns with proper names
         # self.content_widget.add_columns("Attribute", "Values")
         yield self.content_widget
