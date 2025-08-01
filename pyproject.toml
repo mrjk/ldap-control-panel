@@ -41,7 +41,7 @@ version_variable = [
     "ldap_idp/__init__.py:__version__"
 ]
 version_toml = [
-    "pyproject.toml:tool.poetry.version"
+    "pyproject.toml:project.version"
 ]
 version_pattern = [
     "README.md:mrjk78/ldap-control-panel:{version}",
