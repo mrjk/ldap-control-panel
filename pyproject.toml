@@ -37,9 +37,6 @@ requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.semantic_release]
-version_variable = [
-    "ldap_idp/__init__.py:__version__"
-]
 version_toml = [
     "pyproject.toml:project.version"
 ]

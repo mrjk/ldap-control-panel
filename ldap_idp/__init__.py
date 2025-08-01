@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 """
-LDAP IDP - LDAP Identity Provider tools
+LDAP Control Panel
 """
 
-__version__ = "0.3.1" 
+try:
+    from importlib.metadata import version, PackageNotFoundError
+except ImportError:
+    # Python < 3.8
+    from importlib_metadata import version, PackageNotFoundError
+
+# Guess version from package
+__PACKAGE_NAME__ = 'ldap_idp'
+try:
+    __version__ = version(__PACKAGE_NAME__)
+except PackageNotFoundError:
+    __version__ = "unknown"
+

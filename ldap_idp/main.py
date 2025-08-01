@@ -24,6 +24,7 @@ from textual.widgets import (
     TabPane,
 )
 
+from ldap_idp import __version__
 from ldap_idp.lib_textual.app_base import AppWrapper, WrappedAppBase
 
 # Configure logging - only to file, not console
@@ -227,6 +228,7 @@ def main():
     logger.info("Starting Hello World CLI App")
     app = AppWrapper(
         app_title="LDAP Control Panel",
+        app_subtitle=f"v{__version__}",
         app_class=BigApp,
     )
     app.run()
