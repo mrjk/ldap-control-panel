@@ -18,10 +18,10 @@ on:
           description: 'Released version'
           value: ${{ jobs.release.outputs.version }}
 
-    secrets:
-      GITHUB_TOKEN:
-        description: 'GitHub token for authentication'
-        required: false
+    # secrets:
+    #   GITHUB_TOKEN:
+    #     description: 'GitHub token for authentication'
+    #     required: false
 
 permissions:
   id-token: write
