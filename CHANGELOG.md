@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.3.1 (2025-08-01)
+
+### Bug Fixes
+
+- Ui visibility
+  ([`27dd2f9`](https://github.com/mrjk/ldap-control-panel/commit/27dd2f90422ff09e38648696bd7da1efeab72e87))
+
+### Continuous Integration
+
+- Fix bump commit message
+  ([`0a41ea0`](https://github.com/mrjk/ldap-control-panel/commit/0a41ea0b53a7457434b6b63c01f1819e7cd51786))
+
+
 ## v0.3.0 (2025-08-01)
 
 ### Continuous Integration
