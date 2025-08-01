@@ -16,6 +16,9 @@ jobs:
   release:
     runs-on: ubuntu-latest
     concurrency: release
+    outputs:
+      released: ${{ steps.semantic-release.outputs.released }}
+      version: ${{ steps.semantic-release.outputs.version }}
 
     steps:
       - name: Checkout code
@@ -37,10 +40,10 @@ jobs:
           echo "Release version: ${{ steps.semantic-release.outputs.version }}"
 
 
-      - name: Include build dockerhub release
-        if: steps.semantic-release.outputs.released == 'true'
-        uses: ./.github/workflows/ci.yml
-        with:
-          ref: ${{ steps.semantic-release.outputs.version }}
-
+  release-dockerhub:
+    needs: release
+    if: needs.release.outputs.released == 'true'
+    uses: ./.github/workflows/ci.yml
+    with:
+      ref: ${{ needs.release.outputs.version }}
 
