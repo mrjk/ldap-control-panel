@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.3.2 (2025-08-01)
+
+### Bug Fixes
+
+- Missing versionning file
+  ([`7accdac`](https://github.com/mrjk/ldap-control-panel/commit/7accdac6b778dab359c40df05e9f2869e8f95ad3))
+
+
 ## v0.3.1 (2025-08-01)
 
 ### Bug Fixes
