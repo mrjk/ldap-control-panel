@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v0.3.0 (2025-08-01)
+
+### Continuous Integration
+
+- Rename action name
+  ([`a291713`](https://github.com/mrjk/ldap-control-panel/commit/a29171329e54e32995718429e30791bcc14beae8))
+
+### Features
+
+- Make the app stable
+  ([`0f7f742`](https://github.com/mrjk/ldap-control-panel/commit/0f7f7429c04a29162c6fdc995875f4323267ed4c))
+
+
 ## v0.2.0 (2025-08-01)
 
 ### Bug Fixes
