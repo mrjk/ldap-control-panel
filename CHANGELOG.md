@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.3.4 (2025-08-01)
+
+### Bug Fixes
+
+- Dockerhub automatic release
+  ([`05860be`](https://github.com/mrjk/ldap-control-panel/commit/05860be92a806a47f2bbe270a7a8a40625a5667f))
+
+
 ## v0.3.3 (2025-08-01)
 
 ### Bug Fixes
