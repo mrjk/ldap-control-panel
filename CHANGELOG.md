@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.3.8 (2025-08-01)
+
+### Bug Fixes
+
+- Missing creadential on publish
+  ([`8465622`](https://github.com/mrjk/ldap-control-panel/commit/84656226d580371cbb99e283ebde984427672fb5))
+
+
 ## v0.3.7 (2025-08-01)
 
 ### Bug Fixes
