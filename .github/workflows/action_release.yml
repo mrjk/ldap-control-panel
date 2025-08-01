@@ -32,12 +32,12 @@ jobs:
     # secrets:
     #   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    release-dockerhub-readme:
-      needs: release-dockerhub
-      if: needs.release-semver.outputs.released == 'true'
-      uses: ./.github/workflows/job_dockerhub_readme.yml
-      with:
-        ref: "v${{ needs.release-semver.outputs.version }}"
-      secrets: inherit  
+  release-dockerhub-readme:
+    needs: release-dockerhub
+    if: needs.release-semver.outputs.released == 'true'
+    uses: ./.github/workflows/job_dockerhub_readme.yml
+    with:
+      ref: "v${{ needs.release-semver.outputs.version }}"
+    secrets: inherit  
 
   
