@@ -20,7 +20,7 @@ on:
 jobs:
 
   release:
-    uses: ./.github/workflows/jobs/dockerhub_publish.yml
+    uses: ./.github/workflows/job_dockerhub_publish.yml
     # with:
     #   ref: "v${{ needs.release.outputs.version }}"
     secrets: inherit  
