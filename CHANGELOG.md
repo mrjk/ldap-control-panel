@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.3.3 (2025-08-01)
+
+### Bug Fixes
+
+- Ci workflow files
+  ([`5c80955`](https://github.com/mrjk/ldap-control-panel/commit/5c809553bd4ab84b12cc519dd3a3a7c610b1123f))
+
+
 ## v0.3.2 (2025-08-01)
 
 ### Bug Fixes
