@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.3.12 (2025-08-01)
+
+### Bug Fixes
+
+- Workflow tagging
+  ([`f9c733b`](https://github.com/mrjk/ldap-control-panel/commit/f9c733b8803f0bab27aee8ce6d2f51cd6d4fe6c3))
+
+
 ## v0.3.11 (2025-08-01)
 
 ### Bug Fixes
