@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.3.7 (2025-08-01)
+
+### Bug Fixes
+
+- Wrong version on job
+  ([`2104166`](https://github.com/mrjk/ldap-control-panel/commit/21041665ce49cc4c6e80b84daa5004e29724a522))
+
+
 ## v0.3.6 (2025-08-01)
 
 ### Bug Fixes
