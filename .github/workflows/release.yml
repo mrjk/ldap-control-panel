@@ -2,10 +2,12 @@ name: Automatic Semantic Release
 
 on:
   workflow_dispatch:
-
   push:
     branches:
       - main
+    paths-ignore:
+      - '**.md'
+
 
 permissions:
   id-token: write
@@ -13,39 +15,22 @@ permissions:
   actions: write
 
 jobs:
+
   release:
-    runs-on: ubuntu-latest
-    concurrency: release
-    outputs:
-      released: ${{ steps.semantic-release.outputs.released }}
-      version: ${{ steps.semantic-release.outputs.version }}
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Python Semantic Release
-        id: semantic-release
-        uses: relekang/python-semantic-release@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          verbosity: 1
-
-      - name: Report release status
-        if: steps.semantic-release.outputs.released == 'true'
-        run: |
-          echo "A new release was published!"
-          echo "Release version: ${{ steps.semantic-release.outputs.version }}"
-
+    uses: ./.github/workflows/jobs/release_semantic.yml
+    # with:
+    #   ref: "v${{ needs.release.outputs.version }}"
+    secrets: inherit  
+    # secrets:
+    #   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
   release-dockerhub:
     needs: release
     if: needs.release.outputs.released == 'true'
-    uses: ./.github/workflows/ci.yml
+    uses: ./.github/workflows/jobs/dockerhub_publish.yml
     with:
       ref: "v${{ needs.release.outputs.version }}"
-    secrets:
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+    secrets: inherit  
+    # secrets:
+    #   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 

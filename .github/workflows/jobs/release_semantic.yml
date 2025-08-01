@@ -1,0 +1,55 @@
+name: Automatic Semantic Release
+
+on:
+  workflow_call:
+
+    inputs:
+      ref:
+        description: 'Git ref to checkout'
+        required: false
+        type: string
+        default: 'main'
+      secrets:
+        DOCKERHUB_TOKEN:
+          description: 'Docker Hub token for authentication'
+          required: true
+
+    outputs:
+      released:
+        description: 'Release status'
+        value: ${{ jobs.release.outputs.released }}
+      version:
+          description: 'Released version'
+          value: ${{ jobs.release.outputs.version }}
+
+
+permissions:
+  id-token: write
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    concurrency: release
+    outputs:
+      released: ${{ steps.semantic-release.outputs.released }}
+      version: ${{ steps.semantic-release.outputs.version }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Python Semantic Release
+        id: semantic-release
+        uses: relekang/python-semantic-release@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          verbosity: 1
+
+      - name: Report release status
+        if: steps.semantic-release.outputs.released == 'true'
+        run: |
+          echo "A new release was published!"
+          echo "Release version: ${{ steps.semantic-release.outputs.version }}"
