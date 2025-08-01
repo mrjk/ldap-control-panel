@@ -1,0 +1,51 @@
+name: Job - Update README on dockerhub
+
+on:
+  workflow_call:
+
+    inputs:
+      ref:
+        description: 'Git ref to checkout'
+        required: false
+        type: string
+        default: 'main'
+      dockerhub_username:
+        description: 'Docker Hub username'
+        required: false
+        type: string
+        
+    secrets:
+      DOCKERHUB_TOKEN:
+        description: 'Docker Hub token for authentication'
+        required: false
+
+env:
+  REF: ${{ inputs.ref || github.ref }}
+  DOCKERHUB_USERNAME: "${{ inputs.dockerhub_username || vars.DOCKERHUB_USERNAME }}"
+
+jobs:
+  build:
+    environment: CICD
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - linux/amd64
+          - linux/arm64
+    steps:
+      - name: Set ENV variables
+        run: |
+          echo "REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
+          
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.REF }}
+
+      - name: Sync Dockerhub README
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: ${{ env.DOCKERHUB_USERNAME }}/${{ env.REPO_NAME }}

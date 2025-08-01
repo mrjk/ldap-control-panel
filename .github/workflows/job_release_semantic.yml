@@ -18,10 +18,17 @@ on:
           description: 'Released version'
           value: ${{ jobs.release.outputs.version }}
 
+    secrets:
+      GITHUB_TOKEN:
+        description: 'GitHub token for authentication'
+        required: false
 
 permissions:
   id-token: write
   contents: write
+
+env:
+  REF: ${{ inputs.ref || github.ref }}
 
 jobs:
   release:
@@ -36,6 +43,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ env.REF }}
 
       - name: Python Semantic Release
         id: semantic-release
