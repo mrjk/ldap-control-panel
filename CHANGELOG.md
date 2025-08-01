@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.3.14 (2025-08-01)
+
+### Bug Fixes
+
+- Wrong label prefix
+  ([`0d548b8`](https://github.com/mrjk/ldap-control-panel/commit/0d548b885a5ca7cd55eb5ee82e6a2d0601e207c5))
+
+
 ## v0.3.13 (2025-08-01)
 
 ### Bug Fixes
