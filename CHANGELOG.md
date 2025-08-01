@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.3.6 (2025-08-01)
+
+### Bug Fixes
+
+- Nested workflow calls
+  ([`5759a89`](https://github.com/mrjk/ldap-control-panel/commit/5759a89ebea143e2d261a6e94d202f66687dfa4d))
+
+
 ## v0.3.5 (2025-08-01)
 
 ### Bug Fixes
