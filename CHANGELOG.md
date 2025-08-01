@@ -2,6 +2,20 @@
 
 <!-- version list -->
 
+## v0.3.16 (2025-08-01)
+
+### Bug Fixes
+
+- And clean gh actions
+  ([`6573852`](https://github.com/mrjk/ldap-control-panel/commit/657385232d1bbd84b2b6aeadb4aff6439c71a4a4))
+
+- Indent
+  ([`cc0a164`](https://github.com/mrjk/ldap-control-panel/commit/cc0a1643c832462f9318215df8f2d7bdc984e3b8))
+
+- Secrets
+  ([`9b5bcda`](https://github.com/mrjk/ldap-control-panel/commit/9b5bcdaa8c2492e6ae5580a69f2ef82a834198ff))
+
+
 ## v0.3.15 (2025-08-01)
 
 ### Bug Fixes
