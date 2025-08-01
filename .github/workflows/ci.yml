@@ -2,6 +2,10 @@ name: Publish on dockerhub
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Automatic Semantic Release"]
+    types: [completed]
+    branches: [main]
   push:
     branches:
       - main
@@ -49,8 +53,8 @@ jobs:
             type=ref,event=branch
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
             type=raw,value=latest,enable={{is_default_branch}}
+          # type=semver,pattern={{major}} - disabled until project is stable
 
       - name: Setup QEMU for cross-platform builds
         uses: docker/setup-qemu-action@v3

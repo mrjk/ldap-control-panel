@@ -10,6 +10,7 @@ on:
 permissions:
   id-token: write
   contents: write
+  actions: write
 
 jobs:
   release:
@@ -17,13 +18,22 @@ jobs:
     concurrency: release
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
       - name: Python Semantic Release
+        id: semantic-release
         uses: relekang/python-semantic-release@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           verbosity: 1
+
+      - name: Report release status
+        if: steps.semantic-release.outputs.new_release_published == 'true'
+        run: |
+          echo "Hello World! A new release was published!"
+          echo "Release version: ${{ steps.semantic-release.outputs.new_release_version }}"
+
 
