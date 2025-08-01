@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.3.13 (2025-08-01)
+
+### Bug Fixes
+
+- Workflow dockerhub
+  ([`e0ace32`](https://github.com/mrjk/ldap-control-panel/commit/e0ace32271d8e878b50896e2200f379b466cf5db))
+
+
 ## v0.3.12 (2025-08-01)
 
 ### Bug Fixes
