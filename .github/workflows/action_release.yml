@@ -1,4 +1,4 @@
-name: Pipeline -Release version
+name: Pipeline - Release version
 
 on:
   workflow_dispatch:
