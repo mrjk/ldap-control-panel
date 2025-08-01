@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.3.15 (2025-08-01)
+
+### Bug Fixes
+
+- Wrong label on branchs
+  ([`23596bf`](https://github.com/mrjk/ldap-control-panel/commit/23596bf824bf3aef176b57aefbc1b555371b3259))
+
+
 ## v0.3.14 (2025-08-01)
 
 ### Bug Fixes
