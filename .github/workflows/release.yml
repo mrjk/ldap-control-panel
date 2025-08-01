@@ -31,9 +31,9 @@ jobs:
           verbosity: 1
 
       - name: Report release status
-        if: steps.semantic-release.outputs.new_release_published == 'true'
+        if: steps.semantic-release.outputs.released == 'true'
         run: |
-          echo "Hello World! A new release was published!"
-          echo "Release version: ${{ steps.semantic-release.outputs.new_release_version }}"
+          echo "A new release was published!"
+          echo "Release version: ${{ steps.semantic-release.outputs.version }}"
 
 
