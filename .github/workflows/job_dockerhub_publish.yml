@@ -9,13 +9,21 @@ on:
         required: false
         type: string
         default: 'main'
-    # secrets:
-    #   DOCKERHUB_TOKEN:
-    #     description: 'Docker Hub token for authentication'
-    #     required: true
+      dockerhub_username:
+        description: 'Docker Hub username'
+        required: false
+        type: string
+        
+    secrets:
+      DOCKERHUB_TOKEN:
+        description: 'Docker Hub token for authentication'
+        required: false
 
 env:
-  REGISTRY_IMAGE: docker.io/${{ vars.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
+  REF: ${{ inputs.ref || github.ref }}
+  DOCKERHUB_USERNAME: "${{ inputs.dockerhub_username || vars.DOCKERHUB_USERNAME }}"
+  REGISTRY_IMAGE: docker.io/${{ inputs.dockerhub_username || vars.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
+  # REGISTRY_IMAGE: docker.io/${{ vars.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}
 
 jobs:
   build:
@@ -35,7 +43,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.ref || github.ref }}
+          ref: ${{ env.REF }}
 
       - name: Set PLATFORM_PAIR
         run: |
@@ -48,11 +56,11 @@ jobs:
         with:
           images: ${{ env.REGISTRY_IMAGE }}
           tags: |
-            type=ref,event=tag
-            type=ref,event=branch
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
+            type=ref,event=tag,value=${{ env.REF }}
+            type=semver,pattern={{version}},value=${{ env.REF }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ env.REF }}
             type=raw,value=latest,enable={{is_default_branch}}
+          # type=ref,event=branch
           # type=semver,pattern={{major}} - disabled until project is stable
 
       - name: Setup QEMU for cross-platform builds
