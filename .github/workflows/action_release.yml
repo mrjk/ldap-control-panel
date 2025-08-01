@@ -1,4 +1,4 @@
-name: Automatic Semantic Release
+name: Pipeline -Release version
 
 on:
   workflow_dispatch:
@@ -16,7 +16,7 @@ permissions:
 
 jobs:
 
-  release:
+  release-semver:
     uses: ./.github/workflows/job_release_semantic.yml
     # with:
     #   ref: "v${{ needs.release.outputs.version }}"
@@ -25,11 +25,11 @@ jobs:
     #   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
   release-dockerhub:
-    needs: release
-    if: needs.release.outputs.released == 'true'
+    needs: release-semver
+    if: needs.release-semver.outputs.released == 'true'
     uses: ./.github/workflows/job_dockerhub_publish.yml
     with:
-      ref: "v${{ needs.release.outputs.version }}"
+      ref: "v${{ needs.release-semver.outputs.version }}"
     secrets: inherit  
     # secrets:
     #   DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}

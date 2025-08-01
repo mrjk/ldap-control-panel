@@ -1,4 +1,4 @@
-name: Publish on dockerhub
+name: Pipeline - CI
 
 on:
   workflow_dispatch:

@@ -1,7 +1,8 @@
-name: Publish on dockerhub
+name: Job - Publish on dockerhub
 
 on:
   workflow_call:
+    
     inputs:
       ref:
         description: 'Git ref to checkout'
