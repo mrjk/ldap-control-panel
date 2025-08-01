@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Publish on dockerhub
 
 on:
   workflow_dispatch:
@@ -32,15 +32,6 @@ jobs:
         run: |
           echo "REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
           
-
-
-      - name: Temporary Dump
-        run: |
-          echo REPO_NAME=$REPO_NAME
-          echo REPO_OWNER=${{ vars.DOCKERHUB_USERNAME }}
-          echo FINAL ${{ vars.DOCKERHUB_USERNAME }}/${{ env.REPO_NAME }}
-
-
       - name: Checkout Code
         uses: actions/checkout@v4
 
