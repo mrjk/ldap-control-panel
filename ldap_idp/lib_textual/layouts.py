@@ -32,7 +32,7 @@ class LayoutContainer(Container):
     # }
     
     .left-pane {
-        # border: solid purple;
+        border-right: heavy $background;
         width: 30%;
         max-width: 50;
     }
