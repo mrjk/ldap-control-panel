@@ -2,6 +2,22 @@
 
 <!-- version list -->
 
+## v0.3.10 (2025-08-01)
+
+### Bug Fixes
+
+- Jobs structure
+  ([`3a61cd7`](https://github.com/mrjk/ldap-control-panel/commit/3a61cd7d9556c1c8c1534080e2ae2be1590a798a))
+
+- Wip on gh actions
+  ([`80aa22e`](https://github.com/mrjk/ldap-control-panel/commit/80aa22e1975ab900efba6eebe615da244d483c0f))
+
+### Testing
+
+- New pipeline org
+  ([`9b8b10c`](https://github.com/mrjk/ldap-control-panel/commit/9b8b10c5113dc83d9651d8982e26eab316fcc5ff))
+
+
 ## v0.3.9 (2025-08-01)
 
 ### Bug Fixes

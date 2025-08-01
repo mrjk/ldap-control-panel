@@ -1,6 +1,6 @@
 [project]
 name = "ldap_idp"
-version = "0.3.9"
+version = "0.3.10"
 description = "Simple ldap-manager"
 authors = [
     {name = "mrjk"}
