@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.3.11 (2025-08-01)
+
+### Bug Fixes
+
+- Pipeline image tagging
+  ([`05c6467`](https://github.com/mrjk/ldap-control-panel/commit/05c6467b8c5533adcd9db472e939e51c13337612))
+
+
 ## v0.3.10 (2025-08-01)
 
 ### Bug Fixes
