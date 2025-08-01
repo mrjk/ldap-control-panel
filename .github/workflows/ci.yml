@@ -1,12 +1,14 @@
 name: Publish on dockerhub
 
 on:
+  workflow_call:
+    inputs:
+      ref:
+        description: 'Git ref to checkout'
+        required: false
+        type: string
+        default: 'main'
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Automatic Semantic Release"]
-    types: [completed]
-    tags:
-      - 'v*'
   push:
     branches:
       - main
@@ -39,6 +41,8 @@ jobs:
           
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
 
       - name: Set PLATFORM_PAIR
         run: |

@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -35,5 +35,12 @@ jobs:
         run: |
           echo "A new release was published!"
           echo "Release version: ${{ steps.semantic-release.outputs.version }}"
+
+
+      - name: Include build dockerhub release
+        if: steps.semantic-release.outputs.released == 'true'
+        uses: ./.github/workflows/ci.yml
+        with:
+          ref: ${{ steps.semantic-release.outputs.version }}
 
 
