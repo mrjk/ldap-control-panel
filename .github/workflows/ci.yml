@@ -8,6 +8,10 @@ on:
         required: false
         type: string
         default: 'main'
+    secrets:
+      DOCKERHUB_TOKEN:
+        description: 'Docker Hub token for authentication'
+        required: true
   workflow_dispatch:
   push:
     branches:

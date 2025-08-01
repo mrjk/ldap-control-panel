@@ -46,4 +46,6 @@ jobs:
     uses: ./.github/workflows/ci.yml
     with:
       ref: "v${{ needs.release.outputs.version }}"
+    secrets:
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
