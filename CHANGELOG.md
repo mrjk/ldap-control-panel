@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.3.17 (2025-08-02)
+
+### Bug Fixes
+
+- Ci-cd
+  ([`4144652`](https://github.com/mrjk/ldap-control-panel/commit/4144652d7daeb5c1db371ef18fa75d5f5d4f5a39))
+
+
 ## v0.3.16 (2025-08-01)
 
 ### Bug Fixes
