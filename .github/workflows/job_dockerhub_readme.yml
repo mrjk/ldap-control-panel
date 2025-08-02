@@ -27,12 +27,6 @@ jobs:
   build:
     environment: CICD
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        platform:
-          - linux/amd64
-          - linux/arm64
     steps:
       - name: Set ENV variables
         run: |
